@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="baileya4.crossswitch.ScoreActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:layout_gravity="center"
+        android:text="@string/high"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="baileya4.crossswitch.ScoreFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="baileya4.crossswitch.MatchScoreFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </fragment>
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Current"
+        android:layout_gravity="center"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:color/black"
+        android:textColor="@android:color/holo_blue_bright"
+        android:text="@string/back" />
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">The Puzzle Box</string>
+    <string name="current">Current Moves</string>
+    <string name="least">Best Game</string>
+    <string name="help_cs">Select a board type, and try to turn all the blue squares green! The number of moves you take is counted, so try to beat your own scores!</string>
+    <string name="help_cc">Select a blue square to fill in a number, press Set to set the number in the square. Find the number for each square by adding the number at the top of that column to the number at the beginning of that row. Press \'Check Answer\' to see if your answer is correct.</string>
+    <string name="help_color">Tap and drag the colored squares to move them around the screen! No win conditions, just a sandbox experience.</string>
+    <string name="help_ttt">Tap a square to place an X or O. Place 3 in a row to win.</string>
+    <string name="player">user</string>
+    <string name="won">Congratulations, you have won!</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="back">Back</string>
+    <string name="crossswitch">CrossSwitch</string>
+    <string name="calc">CrossCalc</string>
+    <string name="color">CrossColor</string>
+    <string name="ttt">Tic Tac Toe</string>
+    <string name="name3">3x3 Square</string>
+    <string name="name4">4x4 Square</string>
+    <string name="name5">5x5 Square</string>
+    <string name="name6">6x6 Square</string>
+    <string name="name7">7x7 Square</string>
+    <string name="name8">8x8 Square</string>
+    <string name="nameD">Diamond</string>
+    <string name="title">The Puzzle Box</string>
+    <string name="single">Single Player Games:</string>
+    <string name="multi">Two Player Games:</string>
+    <string name="player_name">Player Name:</string>
+    <string name="select">Select Player</string>
+    <string name="view">View High Scores</string>
+    <string name="high">High Scores</string>
+    <string name="info">Info</string>
+    <string name="set">Set</string>
+    <string name="check">Check Answer</string>
+    <string name="time">Time:</string>
+    <string name="title_activity_player_select">Player Select</string>
+    <string name="label_name">Player Name:</string>
+    <string name="button_add">Add Player</string>
+    <string name="button_back">Back</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main_menu">The Puzzle Box</string>
+
+</resources>
