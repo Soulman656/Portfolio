@@ -71,7 +71,7 @@ public class MainMenuActivity extends AppCompatActivity {
         cross.setOnClickListener(ch);
 
         MatchHandler mh = new MatchHandler();
-        match = (Button) findViewById(R.id.calc);
+        match = (Button) findViewById(R.id.match);
         match.setOnClickListener(mh);
 
         ColorHandler clh = new ColorHandler();
@@ -92,7 +92,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         InfoHandler ih = new InfoHandler();
         info[0] = (Button) findViewById(R.id.infoCS);
-        info[1] = (Button) findViewById(R.id.infoCC);
+        info[1] = (Button) findViewById(R.id.infoCM);
         info[2] = (Button) findViewById(R.id.infoColor);
         info[3] = (Button) findViewById(R.id.infoTTT);
         info[0].setOnClickListener(ih);
@@ -120,7 +120,7 @@ public class MainMenuActivity extends AppCompatActivity {
             if(name.contains("infoCS")) {
                 showMsg(getResources().getString(R.string.help_cs),getResources().getString(R.string.crossswitch));
             }else if(name.contains("infoCC")) {
-                showMsg(getResources().getString(R.string.help_cc),getResources().getString(R.string.calc));
+                showMsg(getResources().getString(R.string.help_cc),getResources().getString(R.string.match));
             }else if(name.contains("infoColor")) {
                 showMsg(getResources().getString(R.string.help_color),getResources().getString(R.string.color));
             }else if(name.contains("infoTTT")) {

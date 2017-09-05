@@ -30,9 +30,9 @@ import static android.R.drawable.alert_light_frame;
  *
  * CrossCalc
  *
- * Contains a grid of empty spaces, and an Edittext.
- * A number can be entered in the Edittext, which will
- * then be placed in the selected square.
+ * Contains a grid of empty spaces, with hints on the side and top.
+ * The hints indicate how many squares of each color are in each row
+ * or column, and in what order.
  */
 
 public class MatchActivity extends AppCompatActivity {
@@ -42,13 +42,12 @@ public class MatchActivity extends AppCompatActivity {
     private Hint[] hintsH;
     private String[][] solution;
     private boolean[][] correct;
-    private ArrayList<String> colorList = new ArrayList<>();
-    int w = 1;
-    int shades = 3;
+    private ArrayList<String> colorList;
+    private int w = 1;
+    private int shades = 4;
     private ColorButtonHandler bh;
     private CountDownTimer timer;
     private long timeleft;
-//    private ArrayList<Integer> color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +59,9 @@ public class MatchActivity extends AppCompatActivity {
         hintsH = new Hint[side];
         solution = new String[side][side];
         correct = new boolean[side][side];
-//        color = new ArrayList<Integer>();
-//        color.add(R.color.holoblue);
-//        color.add(R.color.hologreen);
-//        color.add(R.color.holored);
-//        color.add(R.color.holoorange);
-//        color.add(R.color.holopurple);
-//        color.add(R.color.colorPrimary);
-//        color.add(R.color.colorAccent);
 
+        colorList = new ArrayList<>();
+        //colorList.add("blue");
         colorList.add("green");
         colorList.add("orange");
         colorList.add("purple");
@@ -125,6 +118,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //set the grid buttons to a random pattern for a new game, and set hints accordingly.
     private void setButtons_Square(MatchActivity.ColorButtonHandler bh, GridLayout grid, int w){
 
         Button tv = new Button(this);
@@ -177,33 +171,27 @@ public class MatchActivity extends AppCompatActivity {
 
     }
 
+    //set up a hint
     private void setHint(Hint h, int n){
         h.view = new Button(this);
         h.view.setBackground(getResources().getDrawable(alert_dark_frame,null));
         h.view.setBackgroundTintList(getResources().getColorStateList(R.color.black,null));
-        //h.view.setTextColor(getResources().getColor(black,null));
         h.view.setAllCaps(false);
         h.view.setTextSize(20);
         h.view.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         h.view.setId(n+100);
     }
 
+    //determine the target color for the current square
     private int getSquare(int r, int c) {
         int draw = R.drawable.blank;
         int num = (genRandom(shades, 1));
-        if (hintsV[r].getColor("green").size() >= side-1 || hintsH[c].getColor("green").size() >= side-1) {
-            cells[r][c].setTag("blue");
-            hintsV[r].bumpBlue();
-            hintsH[c].bumpBlue();
-            correct[r][c] = true;
+        cells[r][c].setTag("blue");
+        if (row_full(r) || col_full(c)) {
             solution[r][c] = "blue";
         }else {
-            cells[r][c].setTag("blue");
             switch (num) {
                 case 1:
-                    hintsV[r].bumpBlue();
-                    hintsH[c].bumpBlue();
-                    correct[r][c] = true;
                     solution[r][c] = "blue";
                     break;
                 case 2:
@@ -221,6 +209,31 @@ public class MatchActivity extends AppCompatActivity {
         return draw;
     }
 
+    private boolean row_full(int r){
+        int total = 0;
+        for(int c=1; c<side; c++){
+            if(solution[r][c] != null) {
+                if (!solution[r][c].equals("blue")) {
+                    total++;
+                }
+            }
+        }
+        return (total >= side-2);
+    }
+
+    private boolean col_full(int c){
+        int total = 0;
+        for(int r=1; r<side; r++){
+            if(solution[r][c] != null) {
+                if (!solution[r][c].equals("blue")) {
+                    total++;
+                }
+            }
+        }
+        return (total >= side-2);
+    }
+
+    //traverse the solution grid to determine the hints for each row and column
     private void parseHints(){
         for(int row=1; row< side; row++) {
             for (int col = 1; col < side; col++) {
@@ -268,7 +281,6 @@ public class MatchActivity extends AppCompatActivity {
             row = Character.getNumericValue(Integer.toString(id).charAt(1));
         }
 
-        toggle(col, row);
         if(isSolved()){
                 showMsg("You have won! Play again?");
                 return;
@@ -278,14 +290,7 @@ public class MatchActivity extends AppCompatActivity {
         sol.setText(printSol());
     }
 
-    private void toggle(int c, int r){
-        if(correct[c][r]){
-            correct[c][r] = false;
-        }else{
-            correct[c][r] = true;
-        }
-    }
-
+    //print the solution grid -- for debugging
     public String printSol(){
         String grid = new String();
         for(int r=0;r<side;r++){
@@ -310,6 +315,7 @@ public class MatchActivity extends AppCompatActivity {
         return grid;
     }
 
+    //determine the next color the button should change to.
     public int findColor(Button b){
         String tag = b.getTag().toString();
         switch (tag) {
@@ -367,22 +373,11 @@ public class MatchActivity extends AppCompatActivity {
         startTimer();
     }
 
+    //generate a random number
     private int genRandom(int max, int min){
         Random r = new Random();
         return r.nextInt(max - min + 1) + min;
     }
-
-//    private boolean isSolved(){
-//        for(boolean[] row: correct){
-//            for(boolean sol: row){
-//                if(!sol){
-//                    return false;
-//                }
-//            }
-//        }
-//
-//        return true;
-//    }
 
     //checks if game is solved
     private boolean isSolved(){
@@ -396,17 +391,23 @@ public class MatchActivity extends AppCompatActivity {
 
         return true;
     }
-    
+
+    //actions for each button in the puzzle grid
     private class ColorButtonHandler implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             Button selected = (Button) v;
             selected.setBackgroundTintList(getResources().getColorStateList(findColor(selected),null));
 
-            checkSquare(selected);
+            if(isSolved()){
+                showMsg("You have won! Play again?");
+                return;
+            }
+            //checkSquare(selected);
         }
     }
 
+    //display a pop-up
     private void showMsg(String e){
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         DoneHandler dh = new DoneHandler();
@@ -416,6 +417,7 @@ public class MatchActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //return to previous menu
     private void goBack(){this.finishAfterTransition();}
 
     private class BackHandler implements View.OnClickListener{
@@ -425,6 +427,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //actions for winning the pop-up
     private class DoneHandler implements DialogInterface.OnClickListener{
         public void onClick(DialogInterface d, int i) {
             if(i==-1){

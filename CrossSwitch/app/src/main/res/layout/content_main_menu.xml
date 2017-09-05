@@ -153,7 +153,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/calc"
+                android:id="@+id/match"
                 style="?android:buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -163,11 +163,11 @@
                 android:drawableStart="@drawable/cc_icon"
                 android:textAllCaps="false"
                 android:textSize="24sp"
-                android:text="@string/calc"
+                android:text="@string/match"
                 android:textColor="@android:color/holo_blue_bright" />
 
             <Button
-                android:id="@+id/infoCC"
+                android:id="@+id/infoCM"
                 style="?android:buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

@@ -24,9 +24,11 @@ public class Hint {
 
     public Hint(){
         hint = new String();
+        //colors.put("blue",new ArrayList<Integer>());
         colors.put("green",new ArrayList<Integer>());
         colors.put("orange",new ArrayList<Integer>());
         colors.put("purple",new ArrayList<Integer>());
+        //colors.get("blue").add(0);
         colors.get("green").add(0);
         colors.get("orange").add(0);
         colors.get("purple").add(0);
@@ -41,24 +43,19 @@ public class Hint {
         return hint;
     }
 
-    public int getBlue(){
-        return blue;
-    }
-
     public ArrayList<Integer> getColor(String c){
         return colors.get(c);
     }
 
-    public int getColorTotal(String c){
+    public int getColorTotal(){
         int total = 0;
-        for(int i=0;i<colors.get(c).size();i++){
-            total += colors.get(c).get(i);
+        Collection<ArrayList<Integer>> cc = colors.values();
+        for(ArrayList<Integer> color: cc) {
+            for (int i = 0; i < color.size(); i++) {
+                total += color.get(i);
+            }
         }
         return total;
-    }
-
-    public void bumpBlue(){
-        blue++;
     }
 
     public void bumpColor(String c){

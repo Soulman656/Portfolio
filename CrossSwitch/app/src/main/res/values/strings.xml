@@ -13,7 +13,7 @@
     <string name="update">Update</string>
     <string name="back">Back</string>
     <string name="crossswitch">CrossSwitch</string>
-    <string name="calc">CrossCalc</string>
+    <string name="match">CrossMatch</string>
     <string name="color">CrossColor</string>
     <string name="ttt">Tic Tac Toe</string>
     <string name="name3">3x3 Square</string>
