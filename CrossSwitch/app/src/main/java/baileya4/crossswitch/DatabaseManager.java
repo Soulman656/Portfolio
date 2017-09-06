@@ -21,7 +21,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String SCORE_5 = "score5";
     private static final String SCORE_6 = "score6";
     private static final String SCORE_D = "scoreD";
-    private static final String TIME = "time";
+    private static final String TIME_4 = "time4";
+    private static final String TIME_5 = "time5";
+    private static final String TIME_6 = "time6";
+    private static final String TIME_7 = "time7";
+    private static final String TIME_8 = "time8";
 
     public DatabaseManager( Context context ) {
         super( context, DATABASE_NAME, null, DATABASE_VERSION );
@@ -36,6 +40,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void onCreate( SQLiteDatabase db ) {
         // build sql create statement
+
         String sqlCreate = "create table " + TABLE_PLAYER + "( " + ID;
         sqlCreate += " integer primary key autoincrement, " + NAME;
         sqlCreate += " text, " + SCORE_3 + " real, " ;
@@ -43,7 +48,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqlCreate += SCORE_5 + " real, " ;
         sqlCreate += SCORE_6 + " real, " ;
         sqlCreate += SCORE_D + " real, " ;
-        sqlCreate += TIME + " real )" ;
+        sqlCreate += TIME_4 + " String, " ;
+        sqlCreate += TIME_5 + " String, " ;
+        sqlCreate += TIME_6 + " String, " ;
+        sqlCreate += TIME_7 + " String, " ;
+        sqlCreate += TIME_8 + " String )" ;
 
         db.execSQL( sqlCreate );
     }
@@ -65,7 +74,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqlInsert += "', '" + player.get_five( );
         sqlInsert += "', '" + player.get_six( );
         sqlInsert += "', '" + player.get_diamond( );
-        sqlInsert += "', '" + player.getTime( ) + "' )";
+        sqlInsert += "', '" + player.get_Tfour( );
+        sqlInsert += "', '" + player.get_Tfive( );
+        sqlInsert += "', '" + player.get_Tsix( );
+        sqlInsert += "', '" + player.get_Tseven( );
+        sqlInsert += "', '" + player.get_Teight( ) + "' )";
 
         db.execSQL( sqlInsert );
         db.close( );
@@ -111,11 +124,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close( );
     }
 
-    public void updateScore( int id, long time) {
+    public void updateTime( int id, int type, int time) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        String game = new String();
+        switch(type){
+            case 4: game = TIME_4; break;
+            case 5: game = TIME_5; break;
+            case 6: game = TIME_6; break;
+            case 7: game = TIME_7; break;
+            case 8: game = TIME_8; break;
+        }
+
         String sqlUpdate = "update " + TABLE_PLAYER;
-        sqlUpdate += " set " + TIME + " = '" + time + "'";
+        sqlUpdate += " set " + game + " = '" + time + "'";
         sqlUpdate += " where " + ID + " = " + id;
 
         db.execSQL( sqlUpdate );
@@ -138,7 +160,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     Integer.parseInt(cursor.getString(4)),
                     Integer.parseInt(cursor.getString(5)),
                     Integer.parseInt(cursor.getString(6)),
-                    Long.parseLong(cursor.getString(7)));
+                    Integer.parseInt(cursor.getString(7)),
+                    Integer.parseInt(cursor.getString(8)),
+                    Integer.parseInt(cursor.getString(9)),
+                    Integer.parseInt(cursor.getString(10)),
+                    Integer.parseInt(cursor.getString(11)));
             players.add( curr );
         }
         db.close( );
@@ -175,7 +201,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     Integer.parseInt(cursor.getString(4)),
                     Integer.parseInt(cursor.getString(5)),
                     Integer.parseInt(cursor.getString(6)),
-                    Long.parseLong(cursor.getString(7)));
+                    Integer.parseInt(cursor.getString(7)),
+                    Integer.parseInt(cursor.getString(8)),
+                    Integer.parseInt(cursor.getString(9)),
+                    Integer.parseInt(cursor.getString(10)),
+                    Integer.parseInt(cursor.getString(11)));
         }
 
         Player.current = player;

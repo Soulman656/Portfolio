@@ -46,14 +46,16 @@ public class MatchActivity extends AppCompatActivity {
     private int w = 1;
     private int shades = 4;
     private ColorButtonHandler bh;
-    private CountDownTimer timer;
-    private long timeleft;
+    private CountUpTimer timer;
+    private int timeleft;
+    private DatabaseManager dbmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
+        dbmanager = new DatabaseManager(this);
         cells = new Button[side][side];
         hintsV = new Hint[side];
         hintsH = new Hint[side];
@@ -74,18 +76,27 @@ public class MatchActivity extends AppCompatActivity {
 
     //times the current game
     private void startTimer(){
-        final TextView _tv = (TextView) findViewById( R.id.timer );
-        timer = new CountDownTimer(20*60000, 1000) {
+        final TextView tv = (TextView) findViewById( R.id.timer );
+//        timer = new CountDownTimer(20*60000, 1000) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                _tv.setText(new SimpleDateFormat("mm:ss",Locale.getDefault()).format(new Date( millisUntilFinished)));
+//                timeleft = millisUntilFinished;
+//            }
+//
+//            public void onFinish() {
+//                _tv.setText("Time up!");
+//            }
+//        }.start();
+        timer = new CountUpTimer(600000) {
 
-            public void onTick(long millisUntilFinished) {
-                _tv.setText(new SimpleDateFormat("mm:ss",Locale.getDefault()).format(new Date( millisUntilFinished)));
-                timeleft = millisUntilFinished;
+            public void onTick(int second) {
+                timeleft = second;
+                String time = CountUpTimer.ConvertToTime(second);
+                tv.setText(time);
             }
-
-            public void onFinish() {
-                _tv.setText("Time up!");
-            }
-        }.start();
+        };
+        timer.start();
     }
 
     //creates the board
@@ -282,8 +293,8 @@ public class MatchActivity extends AppCompatActivity {
         }
 
         if(isSolved()){
-                showMsg("You have won! Play again?");
-                return;
+            showMsg("You have won! Play again?");
+            return;
         }
 
         TextView sol = (TextView) findViewById(R.id.sol_grid);
@@ -400,6 +411,10 @@ public class MatchActivity extends AppCompatActivity {
             selected.setBackgroundTintList(getResources().getColorStateList(findColor(selected),null));
 
             if(isSolved()){
+                Player.current.wonMatch(timeleft);
+                dbmanager.updateTime(Player.current.getID(),Game.getType(),Player.current.getBestTime());
+                timer.cancel();
+                timer = null;
                 showMsg("You have won! Play again?");
                 return;
             }

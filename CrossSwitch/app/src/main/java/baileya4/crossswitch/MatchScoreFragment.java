@@ -81,7 +81,9 @@ public class MatchScoreFragment extends Fragment {
 
             // create arrays of components
             TextView[] names = new TextView[players.size( )];
-            TextView[] scoreT = new TextView[players.size( )];
+            TextView[] scoreT5 = new TextView[players.size( )];
+            TextView[] scoreT6 = new TextView[players.size( )];
+            TextView[] scoreT7 = new TextView[players.size( )];
 
             // retrieve width of screen
             Point size = new Point( );
@@ -101,19 +103,41 @@ public class MatchScoreFragment extends Fragment {
                     names[i].setBackgroundColor(getResources().getColor(darker_gray, null));
                 }
 
-                scoreT[i] = new TextView(getActivity());
-                scoreT[i].setText( new SimpleDateFormat("mm:ss").format(new Date(player.getTime())) );
-                scoreT[i].setTextSize(20);
-                scoreT[i].setTextColor(getResources().getColor(black,null));
-                scoreT[i].setGravity(17);
+                scoreT5[i] = new TextView(getActivity());
+                scoreT5[i].setText(CountUpTimer.ConvertToTime(Integer.parseInt(player.get_Tfive())));
+                scoreT5[i].setTextSize(20);
+                scoreT5[i].setTextColor(getResources().getColor(black,null));
+                scoreT5[i].setGravity(17);
                 if(i%2==0) {
-                    scoreT[i].setBackgroundColor(getResources().getColor(darker_gray, null));
+                    scoreT5[i].setBackgroundColor(getResources().getColor(darker_gray, null));
+                }
+
+                scoreT6[i] = new TextView(getActivity());
+                scoreT6[i].setText(CountUpTimer.ConvertToTime(Integer.parseInt(player.get_Tsix())));
+                scoreT6[i].setTextSize(20);
+                scoreT6[i].setTextColor(getResources().getColor(black,null));
+                scoreT6[i].setGravity(17);
+                if(i%2==0) {
+                    scoreT6[i].setBackgroundColor(getResources().getColor(darker_gray, null));
+                }
+
+                scoreT7[i] = new TextView(getActivity());
+                scoreT7[i].setText(CountUpTimer.ConvertToTime(Integer.parseInt(player.get_Tseven())));
+                scoreT7[i].setTextSize(20);
+                scoreT7[i].setTextColor(getResources().getColor(black,null));
+                scoreT7[i].setGravity(17);
+                if(i%2==0) {
+                    scoreT7[i].setBackgroundColor(getResources().getColor(darker_gray, null));
                 }
 
                 // add the elements to grid
-                grid.addView( names[i], width / 2,
+                grid.addView( names[i], width / 4,
                         ViewGroup.LayoutParams.WRAP_CONTENT );
-                grid.addView( scoreT[i], ( int ) ( width / 2 ),
+                grid.addView( scoreT5[i], ( int ) ( width / 4 ),
+                        ViewGroup.LayoutParams.WRAP_CONTENT );
+                grid.addView( scoreT6[i], ( int ) ( width / 4 ),
+                        ViewGroup.LayoutParams.WRAP_CONTENT );
+                grid.addView( scoreT7[i], ( int ) ( width / 4 ),
                         ViewGroup.LayoutParams.WRAP_CONTENT );
 
 

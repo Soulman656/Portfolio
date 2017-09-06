@@ -20,7 +20,6 @@ import java.util.Locale;
 import static android.R.drawable.alert_light_frame;
 
 /*
- * Homework 2, CSCI 412
  * Alexander Bailey
  *
  * CrossSwitch

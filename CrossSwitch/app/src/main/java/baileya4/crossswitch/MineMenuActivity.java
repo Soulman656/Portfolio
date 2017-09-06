@@ -63,7 +63,6 @@ public class MineMenuActivity extends AppCompatActivity {
     public void setButtons(){
 
         SquareHandler sq = new SquareHandler();
-        DmndHandler d = new DmndHandler();
         BackHandler bh = new BackHandler();
 
         buttons[0] = (Button) findViewById(R.id.btnSquare4);
@@ -132,21 +131,8 @@ public class MineMenuActivity extends AppCompatActivity {
         startActivity(square, ActivityOptions.makeSceneTransitionAnimation(MineMenuActivity.this).toBundle());
     }
 
-    //start up a diamond patterned game
-    public void startDmnd(View v){
-        Game.newGame("diamond",5);
-
-        getWindow().setExitTransition(new Explode());
-        Intent dmnd = new Intent(MineMenuActivity.this, MatchActivity.class);
-        startActivity(dmnd, ActivityOptions.makeSceneTransitionAnimation(MineMenuActivity.this).toBundle());
-    }
-
     private class SquareHandler implements View.OnClickListener {
         public void onClick(View v) {startSquare(v);}
-    }
-
-    private class DmndHandler implements View.OnClickListener {
-        public void onClick(View v) {startDmnd(v);}
     }
 
     private class HelpHandler implements View.OnClickListener {

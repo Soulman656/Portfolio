@@ -40,7 +40,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         DatabaseManager dbManager = new DatabaseManager(this);
-        dbManager.clearDB();
+        //dbManager.clearDB();
 
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
